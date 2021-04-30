@@ -29,8 +29,9 @@ def trending_videos():
 # Get a list of user videos
 @app.route('/api/user/<user_id>/videos', methods=['GET'])
 def user_videos(user_id):
+    print(user_id)
     return TikTokAPI(cookie=cookie) \
-        .getVideosByUserName(user_id, count=10)
+        .getVideosByUserName(user_name=user_id, count=10)
 
 # Get popular videos for user
 @app.route('/api/user/<user_id>/popular_videos', methods=['GET'])
@@ -39,7 +40,7 @@ def popular_videos(user_id):
 
 # Get likes count
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
-def likes_count(video_id):
+def likes_count(user_id,video_id):
     return TikTokAPI(cookie=cookie) \
         .getVideoById(video_id)
 
