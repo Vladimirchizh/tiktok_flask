@@ -9,8 +9,8 @@ config = {
 }
 
 cookie = {
-  "s_v_web_id": "verify_ko4m9a76_Sjwlcizz_Oyf4_4qEs_8XWK_2R2VQrJ8pMAu",
-  "tt_webid": "6957010473724708358"
+  "s_v_web_id": "verify_ko4oaav9_ZxHRwiaE_riue_4oIf_BXla_GLtAvfif7KCI",
+  "tt_webid": "6937647666549769733"
 }
 
 app = Flask(__name__)
@@ -41,7 +41,7 @@ def popular_videos(user_id):
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
 def likes_count(video_id):
     return TikTokAPI(cookie=cookie) \
-        .getVideoById(self, video_id)
+        .getVideoById(video_id)
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
 @app.route('/api/user/videos', methods=['POST'])
