@@ -1,15 +1,21 @@
-import flask
+from flask import Flask, request
+from flask_caching import Cache
 from TikTokAPI import TikTokAPI
 
-cookie = {
-  "s_v_web_id": "<your_key>",
-  "tt_webid": "<your_key>"
+config = {
+    "DEBUG": True, 
+    "CACHE_TYPE": "SimpleCache",
+    "CACHE_DEFAULT_TIMEOUT": 300
 }
 
+cookie = {
+  "s_v_web_id": "verify_ko4m9a76_Sjwlcizz_Oyf4_4qEs_8XWK_2R2VQrJ8pMAu",
+  "tt_webid": "6957010473724708358"
+}
 
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app = Flask(__name__)
+app.config.from_mapping(config)
+cache = Cache(app)
 
 # Show 10 most trending videos
 @app.route('/api/trending_videos', methods=['GET'])
@@ -39,14 +45,21 @@ def likes_count(video_id):
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
 @app.route('/api/user/videos', methods=['POST'])
+@cache.cached(timeout=3600)
 def post_vid():
-    return 
+    data = request.get_json()
+    print('Data Received: "{data}"'.format(data=data))
+    return request.get_json()
+
 
 
 # POST /api/user/likes_count {“user_id”:”<user_id>”, ” video_id”:”<video_id>”, “update_cache”:True}
 @app.route('/api/user/likes_count', methods=['POST'])
-def post_likes(user_id):
-    return 
+@cache.cached(timeout=3600)
+def post_likes():
+    data = request.get_json()
+    print('Data Received: "{data}"'.format(data=data))
+    return "Request Processed.\n"
 
 
 app.run()
