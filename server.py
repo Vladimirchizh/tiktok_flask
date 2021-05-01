@@ -48,9 +48,10 @@ def likes_count(user_id,video_id):
 @app.route('/api/user/videos', methods=['POST'])
 @cache.cached(timeout=3600)
 def post_vid():
-    data = request.get_json()
-    print('Data Received: "{data}"'.format(data=data))
-    return request.get_json()
+    if request.get_json()['update_cache'] == 'True':
+        cache.clear()
+
+    return "Posted results.\n user_id: "+request.get_json()['user_id']
 
 
 
@@ -59,8 +60,9 @@ def post_vid():
 @cache.cached(timeout=3600)
 def post_likes():
     data = request.get_json()
-    print('Data Received: "{data}"'.format(data=data))
-    return "Request Processed.\n"
+    if data['update_cache'] == 'True':
+        cache.clear()
+    return "Posted results.\n user_id: "+data['user_id']+"\n video_id: "+data['video_id']
 
 
 app.run()
