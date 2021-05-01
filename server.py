@@ -5,7 +5,7 @@ from TikTokAPI import TikTokAPI
 config = {
     "DEBUG": True, 
     "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 3600
+    "CACHE_DEFAULT_TIMEOUT": 3#600
 }
 
 cookie = {
@@ -24,9 +24,6 @@ def trending_videos():
     return TikTokAPI(cookie=cookie) \
         .getTrending(count=10)
 
-# Get user feeds
-
-
 # Get a list of user videos
 @app.route('/api/user/<user_id>/videos', methods=['GET'])
 @cache.cached()
@@ -39,20 +36,24 @@ def user_videos(user_id):
 @app.route('/api/user/<user_id>/popular_videos', methods=['GET'])
 @cache.cached()
 def popular_videos(user_id):
-    return 
+    return TikTokAPI(cookie=cookie) \
+        .getLikesByUserName(user_id,count=10)
 
 # Get likes count
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
 @cache.cached()
 def likes_count(user_id,video_id):
-    return TikTokAPI(cookie=cookie) \
-        .getVideoById(video_id)
+    data = TikTokAPI(cookie=cookie) \
+        .getVideoById(video_id)["itemInfo"]["itemStruct"]['stats']['diggCount']
+    return 'For this video it is total of %s likes'%str(data)
+
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
 @app.route('/api/user/videos', methods=['POST'])
 @cache.cached()
 def post_vid():
     if request.get_json()['update_cache'] == 'True':
+        # TODO вписать сюда метод GET /api/user/videos
         cache.clear()
 
     return "Posted results.\n user_id: "+request.get_json()['user_id']
@@ -66,6 +67,7 @@ def post_likes():
     data = request.get_json()
     if data['update_cache'] == 'True':
         cache.clear()
+        likes_count(data['user_id'],data['video_id'])
     return "Posted results.\n user_id: "+data['user_id']+"\n video_id: "+data['video_id']
 
 
