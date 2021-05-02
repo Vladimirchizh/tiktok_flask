@@ -17,6 +17,12 @@ app = Flask(__name__)
 app.config.from_mapping(config)
 cache = Cache(app)
 
+def str_to_bool(s):
+    if s == 'True':
+         return True
+    elif s == 'False':
+         return False
+
 # Show 10 most trending videos
 @app.route('/api/trending_videos', methods=['GET'])
 @cache.cached()
@@ -42,24 +48,23 @@ def popular_videos(user_id):
 # Get likes count
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
 @cache.cached()
-def likes_count(user_id,video_id):
-    cache.cached(key_prefix='/<user_id>/<video_id>/likes_count')
+def likes_count(user_id,video_id,forced_update=None):
+    cache.cached(key_prefix='/<user_id>/<video_id>/likes_count', 
+                 forced_update=str_to_bool(forced_update))
+
     likes = TikTokAPI(cookie=cookie) \
         .getVideoById(video_id)["itemInfo"]["itemStruct"]['stats']['diggCount']
-    return 'For this video it is total of %s likes'%str(likes)
+    
+    return 'For video %s it is total of %s likes'%(str(video_id), str(likes))
 
 
 # POST /api/user/likes_count {“user_id”:”<user_id>”, ” video_id”:”<video_id>”, “update_cache”:True}
 @app.route('/api/user/likes_count', methods=['POST'])
-@cache.cached()
 def post_likes():
     data = request.get_json()
-    if data['update_cache'] == 'True':
-        #cache.delete(key='/%s/%s/likes_count'%(data['user_id'],data['video_id']))
-        cache.cached(key_prefix='/%s/%s/likes_count'%(data['user_id'],data['video_id']), forced_update=True)
-    likes = likes_count(data['user_id'],data['video_id'])
-    return likes # "Posted results.\n user_id: "+data['user_id']+"\n video_id: "+data['video_id']
 
+    likes = likes_count(data['user_id'],data['video_id'],data['update_cache'])
+    return likes
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
 @app.route('/api/user/videos', methods=['POST'])

@@ -5,3 +5,6 @@
     curl http://127.0.0.1:5000/api/user/tatyanka_yak/6954415245976751361/likes_count
     
     curl http://127.0.0.1:5000/api/user/gabrielymayra/popular_videos
+
+
+    curl http://127.0.0.1:5000/api/user/likes_count{“user_id”:”arsenal”,”video_id”:”6954415245976751361”,“update_cache”:"True"}
