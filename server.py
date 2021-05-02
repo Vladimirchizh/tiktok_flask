@@ -5,7 +5,7 @@ from TikTokAPI import TikTokAPI
 config = {
     "DEBUG": True, 
     "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 3#600
+    "CACHE_DEFAULT_TIMEOUT": 3600
 }
 
 cookie = {
@@ -43,21 +43,10 @@ def popular_videos(user_id):
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
 @cache.cached()
 def likes_count(user_id,video_id):
-    data = TikTokAPI(cookie=cookie) \
+    cache.cached(key_prefix='/<user_id>/<video_id>/likes_count')
+    likes = TikTokAPI(cookie=cookie) \
         .getVideoById(video_id)["itemInfo"]["itemStruct"]['stats']['diggCount']
-    return 'For this video it is total of %s likes'%str(data)
-
-
-# POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
-@app.route('/api/user/videos', methods=['POST'])
-@cache.cached()
-def post_vid():
-    if request.get_json()['update_cache'] == 'True':
-        # TODO вписать сюда метод GET /api/user/videos
-        cache.clear()
-
-    return "Posted results.\n user_id: "+request.get_json()['user_id']
-
+    return 'For this video it is total of %s likes'%str(likes)
 
 
 # POST /api/user/likes_count {“user_id”:”<user_id>”, ” video_id”:”<video_id>”, “update_cache”:True}
@@ -66,9 +55,22 @@ def post_vid():
 def post_likes():
     data = request.get_json()
     if data['update_cache'] == 'True':
-        cache.clear()
-        likes_count(data['user_id'],data['video_id'])
-    return "Posted results.\n user_id: "+data['user_id']+"\n video_id: "+data['video_id']
+        #cache.delete(key='/%s/%s/likes_count'%(data['user_id'],data['video_id']))
+        cache.cached(key_prefix='/%s/%s/likes_count'%(data['user_id'],data['video_id']), forced_update=True)
+    likes = likes_count(data['user_id'],data['video_id'])
+    return likes # "Posted results.\n user_id: "+data['user_id']+"\n video_id: "+data['video_id']
+
+
+# POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
+@app.route('/api/user/videos', methods=['POST'])
+@cache.cached()
+def post_vid():
+    if request.get_json()['update_cache'] == 'True':
+        # TODO вписать сюда метод GET /api/user/videos
+        cache.delete()
+
+    return "Posted results.\n user_id: "+request.get_json()['user_id']
+
 
 
 app.run()
