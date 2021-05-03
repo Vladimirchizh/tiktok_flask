@@ -28,7 +28,7 @@ TikTok ain't giving neither popular videos of the user nor his feed, so I've mad
 
 Example of curl command
     
-    chttps://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/gabrielymayra/info
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/gabrielymayra/info
 
 *caching response for this method*
 ```
