@@ -24,7 +24,7 @@ Example of curl command
     
 #### Task 2: Get popular videos for user
 
-TikTok ain't giving neither popular videos of the user nor his feed, so I've made up the method which give really detailed info about th user GET'/api/user/<user_id>/info'.
+TikTok ain't giving neither popular videos for the user nor his feed, so I've made up the method which gives really detailed info about th user GET'/api/user/<user_id>/info'.
 
 Example of curl command
     
