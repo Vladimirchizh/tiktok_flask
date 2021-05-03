@@ -1,6 +1,7 @@
 ## TikTok api 
 
 #### Task 1: Show 10 most trending videos, GET '/api/trending_videos'
+
 Example of curl command
 
     curl http://127.0.0.1:5000/api/trending_videos
@@ -20,12 +21,8 @@ Example of curl command
     "6950541591102704897": "https://v58.tiktokcdn.com/video/tos/alisg/tos-alisg-pve-0037c001/2381441e046f4d558e64960f1a5acd36/?VExpiration=1620009565&VSignature=DkhnPvLrqtw2m57daNqL8A&a=1233&br=212&bt=106&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=2&er=&l=20210502203857010234109084590EE915&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=andkNGY4ZGpuNDMzODczM0ApOTM6PDg2NGUzNzozOjhnNWdganNvLTFfZW5gLS1kMTRzc2BhMTVhY15gM2FhNDJeYDE6Yw%3D%3D&vl=&vr="\
     }
 
-#### Task 2: Get a list of user videos, GET '/api/user/<user_id>/videos'
-Example of curl command
     
-    curl http://127.0.0.1:5000/api/user/gabrielymayra/videos
-    
-#### Task 3: Get popular videos for user
+#### Task 2: Get popular videos for user
 
 TikTok ain't giving neither popular videos of the user nor his feed, so I've made up the method which give really detailed info about th user GET'/api/user/<user_id>/info'.
 
@@ -123,7 +120,8 @@ Example of curl command
   }
 }
 ```
-#### Task 4: Get likes count, GET '/api/user/<user_id>/<video_id>/likes_count'
+#### Task 3: Get likes count, GET '/api/user/<user_id>/<video_id>/likes_count'
+
 Example of curl command
 
     curl http://127.0.0.1:5000/api/user/tatyanka_yak/6954415245976751361/likes_count
@@ -134,7 +132,8 @@ Example of curl command
 
     For video 6943996796519681281 it is total of 15700000 likes
 
-#### Task 5: Update cache of likes count, POST /api/user/likes_count {“user_id”:”<user_id>”, ” video_id”:”<video_id>”, “update_cache”:True}
+#### Task 4: Update cache of likes count, POST /api/user/likes_count {“user_id”:”<user_id>”, ” video_id”:”<video_id>”, “update_cache”:True}
+
 Example of curl command
 
     curl http://127.0.0.1:5000/api/user/likes_count -d "{\"user_id\": \"luna_the_pantera\",\"update_cache\":\"False\",\"video_id\":\"6943996796519681281\"}" -H 'Content-Type: application/json'
@@ -142,3 +141,39 @@ Example of curl command
 *caching response for this method*
 
     For video 6943996796519681281 it is total of 15701000 likes
+
+
+#### Task 5: Get a list of user videos, GET '/api/user/<user_id>/videos'
+
+Example of curl command
+    
+    curl http://127.0.0.1:5000/api/user/gabrielymayra/videos
+
+*returns the dictionary with video ids and links to download them*
+```
+{
+    "6953287268723477766": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c002/c7c61c7f43a44323805ea82d94ec85c3/?a=1988&br=2124&bt=1062&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620087955&l=202105031825410102340990182952594C&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=MztncjhpbmxqNDMzNzczM0ApNDloZzo1Zjw0N2dlNWk2aGdzc2BhYTZpZ3NgLS1kMTZzc2AyLzMwYmBjYGE2MC5gYC06Yw%3D%3D&signature=d7ef0012f9d99d32a702c875e4249e49&tk=tt_webid_v2&vl=&vr=",
+    "6953006636151639301": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c003/b7e7d5a141024649af95ae553b7856d6/?a=1988&br=2052&bt=1026&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088004&l=2021050318260901011514922810527373&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=M3J4dXQ5ZjozNDMzNzczM0ApOjhpODk4Njs1N2k7aDg5N2dzNmRvZ25yaXNgLS1kMTZzcy40M2MzMl81MzQtLS8xLmE6Yw%3D%3D&signature=70fc21a591fb17a4163c28fa5f1bd1f7&tk=tt_webid_v2&vl=&vr=",
+    "6949586476929715461": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c002/2e949486273c41aeb5edbdfbb9881da1/?a=1988&br=2972&bt=1486&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&expire=1620088031&l=2021050318265601011500405209543FE7&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=anNtaW9uMzV4NDMzNzczM0ApOmdnOzc0OmU0N2g2MzY8M2cyNTMxcDM1NWxgLS1kMTZzc2BiMi00NC0xNDUzNi0wLmI6Yw%3D%3D&signature=3a61d8b1aa8cdbf3c7934ce260942e7e&tk=tt_webid_v2&vl=&vr=",
+    "6942356836809035014": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c003/526dac25b2434b88919680dd825877fd/?a=1988&br=1998&bt=999&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088062&l=202105031827200102341090843352B562&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=ajh3ODNkbjM2NDMzMzczM0ApMzc7ZTpmZTw1NzpoZTw4M2dlLWkzLWQ1NmBgLS0vMTZzczEyLS8tLmBjMmM0LTJhNDM6Yw%3D%3D&signature=4b916fdd978dd0c56d4f34c45410568b&tk=tt_webid_v2&vl=&vr=",
+    "6941886441005927686": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c001/f2c0aef436a6445298838daed6db21d8/?a=1988&br=1102&bt=551&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088061&l=202105031827310101151510371C524952&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=anM3dGhmOnQ7NDMzaDczM0ApNTppNGhlN2VpN2Y2NzpkaGcyZy9oNmU0ZV9gLS1gMTZzcy9eYDNfYS02Yi4uMDRhMmI6Yw%3D%3D&signature=fcfaf1cda9be6042f4d7bd2cedb2139f&tk=tt_webid_v2&vl=&vr="
+}
+```
+
+#### Task 6: Post new values to refreshe cache, POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
+
+
+Example of curl command
+    
+    curl http://127.0.0.1:5000/api/user/videos d "{\"user_id\": \"gabrielymayra\",\"update_cache\":\"True\"}" -H 'Content-Type: application/json'
+
+*returns the dictionary with video ids and links to download them*
+```
+{
+    "6953287268723477766": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c002/c7c61c7f43a44323805ea82d94ec85c3/?a=1988&br=2124&bt=1062&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620087955&l=202105031825410102340990182952594C&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=MztncjhpbmxqNDMzNzczM0ApNDloZzo1Zjw0N2dlNWk2aGdzc2BhYTZpZ3NgLS1kMTZzc2AyLzMwYmBjYGE2MC5gYC06Yw%3D%3D&signature=d7ef0012f9d99d32a702c875e4249e49&tk=tt_webid_v2&vl=&vr=",
+    "6953006636151639301": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c003/b7e7d5a141024649af95ae553b7856d6/?a=1988&br=2052&bt=1026&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088004&l=2021050318260901011514922810527373&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=M3J4dXQ5ZjozNDMzNzczM0ApOjhpODk4Njs1N2k7aDg5N2dzNmRvZ25yaXNgLS1kMTZzcy40M2MzMl81MzQtLS8xLmE6Yw%3D%3D&signature=70fc21a591fb17a4163c28fa5f1bd1f7&tk=tt_webid_v2&vl=&vr=",
+    "6949586476929715461": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c002/2e949486273c41aeb5edbdfbb9881da1/?a=1988&br=2972&bt=1486&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&expire=1620088031&l=2021050318265601011500405209543FE7&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=anNtaW9uMzV4NDMzNzczM0ApOmdnOzc0OmU0N2g2MzY8M2cyNTMxcDM1NWxgLS1kMTZzc2BiMi00NC0xNDUzNi0wLmI6Yw%3D%3D&signature=3a61d8b1aa8cdbf3c7934ce260942e7e&tk=tt_webid_v2&vl=&vr=",
+    "6942356836809035014": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c003/526dac25b2434b88919680dd825877fd/?a=1988&br=1998&bt=999&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088062&l=202105031827200102341090843352B562&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=ajh3ODNkbjM2NDMzMzczM0ApMzc7ZTpmZTw1NzpoZTw4M2dlLWkzLWQ1NmBgLS0vMTZzczEyLS8tLmBjMmM0LTJhNDM6Yw%3D%3D&signature=4b916fdd978dd0c56d4f34c45410568b&tk=tt_webid_v2&vl=&vr=",
+    "6941886441005927686": "https://v16-web.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c001/f2c0aef436a6445298838daed6db21d8/?a=1988&br=1102&bt=551&cd=0%7C0%7C0&ch=0&cr=0&cs=0&dr=0&ds=3&er=&expire=1620088061&l=202105031827310101151510371C524952&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&policy=2&qs=0&rc=anM3dGhmOnQ7NDMzaDczM0ApNTppNGhlN2VpN2Y2NzpkaGcyZy9oNmU0ZV9gLS1gMTZzcy9eYDNfYS02Yi4uMDRhMmI6Yw%3D%3D&signature=fcfaf1cda9be6042f4d7bd2cedb2139f&tk=tt_webid_v2&vl=&vr="
+}
+```

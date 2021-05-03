@@ -1,7 +1,11 @@
 import os
 import asyncio
 from pyppeteer import launch
+from pyppeteer.launcher import Launcher
 from .utils import python_list2_web_list
+
+
+' '.join(Launcher().cmd)
 
 
 class TikTokBrowser:
