@@ -2,33 +2,43 @@ from flask import Flask, request
 from flask_caching import Cache
 from TikTokAPI import TikTokAPI
 
+
 config = {
     "DEBUG": True, 
     "CACHE_TYPE": "SimpleCache",
     "CACHE_DEFAULT_TIMEOUT": 3600
 }
 
+
 cookie = {
   "s_v_web_id": "verify_ko4oaav9_ZxHRwiaE_riue_4oIf_BXla_GLtAvfif7KCI",
   "tt_webid": "6937647666549769733"
 }
 
+
 app = Flask(__name__)
 app.config.from_mapping(config)
 cache = Cache(app)
 
+ 
 def str_to_bool(s):
     if s == 'True':
          return True
     elif s == 'False':
          return False
 
+
 # Show 10 most trending videos
 @app.route('/api/trending_videos', methods=['GET'])
 @cache.cached()
 def trending_videos():
-    return TikTokAPI(cookie=cookie) \
+    videos = dict()
+    trends = TikTokAPI(cookie=cookie) \
         .getTrending(count=10)
+    for i in trends['items']:
+        videos[str(i['id'])] = str(i['video']['downloadAddr'])
+    return videos
+
 
 # Get a list of user videos
 @app.route('/api/user/<user_id>/videos', methods=['GET'])
@@ -38,12 +48,14 @@ def user_videos(user_id):
     return TikTokAPI(cookie=cookie) \
         .getVideosByUserName(user_name=user_id, count=10)
 
+
 # Get popular videos for user
 @app.route('/api/user/<user_id>/popular_videos', methods=['GET'])
 @cache.cached()
 def popular_videos(user_id):
     return TikTokAPI(cookie=cookie) \
         .getLikesByUserName(user_id,count=10)
+
 
 # Get likes count
 @app.route('/api/user/<user_id>/<video_id>/likes_count', methods=['GET'])
@@ -65,6 +77,7 @@ def post_likes():
 
     likes = likes_count(data['user_id'],data['video_id'],data['update_cache'])
     return likes
+
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
 @app.route('/api/user/videos', methods=['POST'])
