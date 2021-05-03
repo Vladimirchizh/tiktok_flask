@@ -1,8 +1,6 @@
 from flask import Flask, request
 from flask_caching import Cache
 from TikTokAPI import TikTokAPI
-from TikTokApi import TikTokApi
-api = TikTokApi.get_instance()
 
 config = {
     "DEBUG": True, 
@@ -50,12 +48,12 @@ def user_videos(user_id):
         .getVideosByUserName(user_name=user_id, count=10)
 
 
-# Get popular videos for user
-@app.route('/api/user/<user_id>/popular_videos', methods=['GET'])
+# Get user by his tiktok name
+@app.route('/api/user/<user_id>/info', methods=['GET'])
 @cache.cached()
 def popular_videos(user_id):
     return TikTokAPI(cookie=cookie) \
-        .getLikesByUserName(user_id,count=10)
+        .getUserByName(user_id)
 
 
 # Get likes count

@@ -25,11 +25,104 @@ Example of curl command
     
     curl http://127.0.0.1:5000/api/user/gabrielymayra/videos
     
-#### Task 3: Get popular videos for user, GET'/api/user/<user_id>/popular_videos'
+#### Task 3: Get popular videos for user
+
+TikTok ain't giving neither popular videos of the user nor his feed, so I've made up the method which give really detailed info about th user GET'/api/user/<user_id>/info'.
+
 Example of curl command
     
-    curl http://127.0.0.1:5000/api/user/gabrielymayra/popular_videos
+    curl http://127.0.0.1:5000/api/user/gabrielymayra/info
 
+*caching response for this method*
+```
+{"$language": "en", 
+  "seoProps": {
+    "itemList": [], 
+    "jsonldList": [
+      [
+        "ItemList", 
+        {
+          "itemList": []
+        }
+      ], 
+      [
+        "Breadcrumb", 
+        {
+          "urlList": [
+            {
+              "name": "TikTok", 
+              "url": "https://www.tiktok.com"
+            }, 
+            {
+              "name": "Gabriel Mayra Hernan (@gabrielymayra) | TikTok", 
+              "url": "https://www.tiktok.com/@gabrielymayra"
+            }
+          ]
+        }
+      ], 
+      [
+        "Person", 
+        {
+          "alternateName": "gabrielymayra", 
+          "description": "", 
+          "mainEntityOfPage": {
+            "@id": "https://www.tiktok.com/@gabrielymayra", 
+            "@type": "ProfilePage"
+          }, 
+          "name": "Gabriel Mayra Hernan"
+        }
+      ]
+    ], 
+    "metaParams": {
+      "applicableDevice": "pc, mobile", 
+      "canonicalHref": "https://www.tiktok.com/@gabrielymayra", 
+      "description": "Gabriel Mayra Hernan (@gabrielymayra) en TikTok | 23.6K me gusta. 2.6K fans. Mira el \u00faltimo video de Gabriel Mayra Hernan (@gabrielymayra).", 
+      "keywords": "Gabriel Mayra Hernan,gabrielymayra,TikTok, \u30c6\u30a3\u30c3\u30af\u30c8\u30c3\u30af, tik tok, tick tock, tic tok, tic toc, tictok, \u0442\u0438\u043a \u0442\u043e\u043a, ticktock", 
+      "robotsContent": "index, follow", 
+      "title": "TikTok de Gabriel Mayra Hernan (@gabrielymayra) | Mira los \u00faltimos videos de Gabriel Mayra Hernan en TikTok"
+    }, 
+    "pageId": "6814187084179702789", 
+    "pageType": 1, 
+    "predictedLanguage": "es"
+  }, 
+  "statusCode": 0, 
+  "statusMsg": "", 
+  "userInfo": {
+    "itemList": [], 
+    "stats": {
+      "diggCount": 525, 
+      "followerCount": 2574, 
+      "followingCount": 446, 
+      "heart": 23600, 
+      "heartCount": 23600, 
+      "videoCount": 131
+    }, 
+    "user": {
+      "avatarLarger": "https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1663627540720645~c5_1080x1080.jpeg?x-expires=1620147600&x-signature=XxfOqUgGJGrPNfT9F1ADkC5Iytg%3D", 
+      "avatarMedium": "https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1663627540720645~c5_720x720.jpeg?x-expires=1620147600&x-signature=tGSAvnun4yhjYEbNb%2Bm1ov9G4bw%3D", 
+      "avatarThumb": "https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1663627540720645~c5_100x100.jpeg?x-expires=1620147600&x-signature=DT5heNZIK2U1t6W8QzovULxlvzc%3D", 
+      "commentSetting": 0, 
+      "createTime": 1586558857, 
+      "duetSetting": 0, 
+      "ftc": false, 
+      "id": "6814187084179702789", 
+      "isADVirtual": false, 
+      "nickname": "Gabriel Mayra Hernan", 
+      "openFavorite": true, 
+      "privateAccount": false, 
+      "relation": 0, 
+      "roomId": "", 
+      "secUid": "MS4wLjABAAAAcxpAUhFfDiVrN90XgWlWZLqAkXDR-k7VY5PKJQIVOq59aK-u0ISHQ4v0UIAdMi6L", 
+      "secret": false, 
+      "shortId": "0", 
+      "signature": "", 
+      "stitchSetting": 0, 
+      "uniqueId": "gabrielymayra", 
+      "verified": false
+    }
+  }
+}
+```
 #### Task 4: Get likes count, GET '/api/user/<user_id>/<video_id>/likes_count'
 Example of curl command
 
