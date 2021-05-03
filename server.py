@@ -1,7 +1,8 @@
 from flask import Flask, request
 from flask_caching import Cache
 from TikTokAPI import TikTokAPI
-
+from TikTokApi import TikTokApi
+api = TikTokApi.get_instance()
 
 config = {
     "DEBUG": True, 

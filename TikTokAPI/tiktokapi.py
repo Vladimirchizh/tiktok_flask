@@ -73,6 +73,7 @@ class TikTokAPI(object):
         url = build_get_url(url, {self.did_key: did}, append=True)
         signature = self.tiktok_browser.fetch_auth_params(url, language=self.language)
         url = build_get_url(url, {self.signature_key: signature}, append=True)
+        print(url)
         if extra_headers is None:
             headers = self.headers
         else:
