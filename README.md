@@ -4,7 +4,7 @@
 
 Example of curl command
 
-    curl http://127.0.0.1:5000/api/trending_videos
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/trending_videos
 
 *returns the dictionary with video ids and links to download them*
     
@@ -28,7 +28,7 @@ TikTok ain't giving neither popular videos of the user nor his feed, so I've mad
 
 Example of curl command
     
-    curl http://127.0.0.1:5000/api/user/gabrielymayra/info
+    chttps://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/gabrielymayra/info
 
 *caching response for this method*
 ```
@@ -124,9 +124,9 @@ Example of curl command
 
 Example of curl command
 
-    curl http://127.0.0.1:5000/api/user/tatyanka_yak/6954415245976751361/likes_count
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/tatyanka_yak/6954415245976751361/likes_count
 
-    curl http://127.0.0.1:5000/api/user/tatyanka_yak/6943996796519681281/likes_count
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/tatyanka_yak/6943996796519681281/likes_count
     
 *caching response for this method*
 
@@ -136,7 +136,7 @@ Example of curl command
 
 Example of curl command
 
-    curl http://127.0.0.1:5000/api/user/likes_count -d "{\"user_id\": \"luna_the_pantera\",\"update_cache\":\"False\",\"video_id\":\"6943996796519681281\"}" -H 'Content-Type: application/json'
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/likes_count -d "{\"user_id\": \"luna_the_pantera\",\"update_cache\":\"False\",\"video_id\":\"6943996796519681281\"}" -H 'Content-Type: application/json'
 
 *caching response for this method*
 
@@ -147,7 +147,7 @@ Example of curl command
 
 Example of curl command
     
-    curl http://127.0.0.1:5000/api/user/gabrielymayra/videos
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/gabrielymayra/videos
 
 *returns the dictionary with video ids and links to download them*
 ```
@@ -165,7 +165,7 @@ Example of curl command
 
 Example of curl command
     
-    curl http://127.0.0.1:5000/api/user/videos d "{\"user_id\": \"gabrielymayra\",\"update_cache\":\"True\"}" -H 'Content-Type: application/json'
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/videos d "{\"user_id\": \"gabrielymayra\",\"update_cache\":\"True\"}" -H 'Content-Type: application/json'
 
 *returns the dictionary with video ids and links to download them*
 ```
