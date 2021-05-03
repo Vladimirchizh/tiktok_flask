@@ -165,7 +165,7 @@ Example of curl command
 
 Example of curl command
     
-    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/videos d "{\"user_id\": \"gabrielymayra\",\"update_cache\":\"True\"}" -H 'Content-Type: application/json'
+    curl https://tiktok5flask-fwoqorahna-lm.a.run.app/api/user/videos -d "{\"user_id\": \"gabrielymayra\",\"update_cache\":\"True\"}" -H 'Content-Type: application/json'
 
 *returns the dictionary with video ids and links to download them*
 ```
