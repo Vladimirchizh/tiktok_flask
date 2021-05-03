@@ -16,6 +16,6 @@ RUN apt-get update && \
     wget -q --continue -P /chromedriver "http://chromedriver.storage.googleapis.com/$DRIVERVER/chromedriver_linux64.zip" && \
     unzip /chromedriver/chromedriver* -d /chromedriver
 
-
+RUN python -m playwright install
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
 
