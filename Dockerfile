@@ -1,4 +1,5 @@
 FROM python:3.7
+FROM mcr.microsoft.com/playwright:focal
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME

@@ -4,4 +4,5 @@ PyTikTokAPI==0.0.5
 urllib3==1.26.3
 pyppeteer==0.2.5
 asyncio==3.4.3
+TikTokApi
 gunicorn

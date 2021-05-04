@@ -1,7 +1,14 @@
 from flask import Flask, request
 from flask_caching import Cache
 from TikTokAPI import TikTokAPI
+from TikTokApi import TikTokApi
 import os
+
+
+
+api = TikTokApi.get_instance()
+s_v_web_id = "verify_ko8vd9uf_6WIQwVSR_fDnQ_4zTb_AfQi_vqJhZR7Er44L"
+results=10
 
 config = {
     "DEBUG": True, 
@@ -9,8 +16,9 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": 3600
 }
 
+
 cookie = {
-  "s_v_web_id": "verify_ko8vd9uf_6WIQwVSR_fDnQ_4zTb_AfQi_vqJhZR7Er44L",
+  "s_v_web_id": s_v_web_id,
   "tt_webid": "6937647666549769733"
 }
 
@@ -31,10 +39,9 @@ def str_to_bool(s):
 @cache.cached()
 def trending_videos():
     videos = dict()
-    trends = TikTokAPI(cookie=cookie) \
-        .getTrending(count=10)
-    for i in trends['items']:
-        videos[str(i['id'])] = str(i['video']['downloadAddr'])
+    trending = api.trending(count=results, custom_verifyFp=s_v_web_id)
+    for i in trending:
+        videos[str(i['id'])] = str(i['video']['playAddr'])
     return videos
 
 
@@ -76,10 +83,9 @@ def user_videos(user_id, forced_update=None):
     cache.cached(key_prefix='/<user_id>/videos', 
                  forced_update=str_to_bool(forced_update))
     videos = dict()
-    vids = TikTokAPI(cookie=cookie) \
-        .getVideosByUserName(user_name=user_id, count=10)
-    for i in vids['items']:
-        videos[i['id']] = str(i['video']['downloadAddr'])
+    vids = api.by_username(count=results,username=user_id, custom_verifyFp=s_v_web_id)
+    for i in vids:
+        videos[i['id']] = str(i['video']['playAddr'])
     return videos
 
 # POST /api/user/videos {“user_id”:”<user_id>”, “update_cache”:True }
@@ -90,6 +96,15 @@ def post_vid():
                        data['update_cache'])
     return vids
 
+@app.route('/api/user/<user_id>/liked', methods=['GET'])
+@cache.cached()
+def user_liked(user_id):
+    cache.cached(key_prefix='/<user_id>/liked')
+    videos = dict()
+    vids = api.user_liked(count=results,username=user_id, custom_verifyFp=s_v_web_id)
+    for i in vids:
+        videos[i['id']] = str(i['video']['playAddr'])
+    return videos
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
