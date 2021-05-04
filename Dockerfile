@@ -1,5 +1,5 @@
 FROM python:3.7
-FROM mcr.microsoft.com/playwright:focal
+FROM mcr.microsoft.com/playwright:v1.10.0-bionic
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
